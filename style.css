@@ -363,6 +363,13 @@ input, select, textarea { font-family: inherit; }
   width: 100%;
 }
 
+.btn-success {
+  background: linear-gradient(135deg, #2ecc71, #27ae60) !important;
+  box-shadow: 0 4px 20px rgba(46, 204, 113, 0.35) !important;
+  cursor: default !important;
+  transform: none !important;
+}
+
 .btn-loader {
   display: inline-flex;
 }

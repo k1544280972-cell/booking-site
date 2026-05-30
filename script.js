@@ -6,9 +6,35 @@
   'use strict'
 
   /* --------------------------------------------------
-     0. EmailJS 初始化
+     0. EmailJS 按需加载（不阻塞页面）
      -------------------------------------------------- */
-  emailjs.init('REj-LmwliWVF6NKpm')
+  let emailReady = false
+
+  function loadEmailJS(callback) {
+    if (typeof emailjs !== 'undefined') {
+      try {
+        emailjs.init('REj-LmwliWVF6NKpm')
+        emailReady = true
+        if (callback) callback()
+      } catch (_) {
+        if (callback) callback()
+      }
+      return
+    }
+    const s = document.createElement('script')
+    s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js'
+    s.onload = () => {
+      try {
+        emailjs.init('REj-LmwliWVF6NKpm')
+        emailReady = true
+      } catch (_) {}
+      if (callback) callback()
+    }
+    s.onerror = () => {
+      if (callback) callback()
+    }
+    document.body.appendChild(s)
+  }
 
   /* --------------------------------------------------
      1. 粒子背景
@@ -302,8 +328,6 @@
      6. 预约表单
      -------------------------------------------------- */
   const form = document.getElementById('bookingForm')
-  const successModal = document.getElementById('successModal')
-  const modalClose = document.getElementById('modalClose')
 
   /* 表单验证 */
   function showError(input, msg) {
@@ -326,13 +350,6 @@
       showError(input, '此项不能为空')
       return false
     }
-    if (input.type === 'date' && input.value) {
-      const selected = new Date(input.value + 'T00:00:00')
-      if (selected < new Date(today.toDateString())) {
-        showError(input, '日期不能早于今天')
-        return false
-      }
-    }
     return true
   }
 
@@ -347,20 +364,7 @@
     })
   })
 
-  /* ---------- 提交成功/失败统一处理 ---------- */
-  function showSuccess(msg) {
-    const modalMsg = successModal.querySelector('p')
-    if (msg && modalMsg) {
-      modalMsg.innerHTML = msg.replace(/\n/g, '<br />')
-    }
 
-    successModal.classList.add('active')
-    document.body.style.overflow = 'hidden'
-
-    form.reset()
-    form.querySelectorAll('.invalid').forEach((el) => el.classList.remove('invalid'))
-    form.querySelectorAll('.error-msg').forEach((el) => (el.textContent = ''))
-  }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -396,50 +400,39 @@
     records.push(record)
     localStorage.setItem('abu_bookings', JSON.stringify(records))
 
-    /* 禁用按钮防止重复提交 */
+    /* 按钮变为「预约成功」，3 秒后恢复 */
     const btn = form.querySelector('button[type="submit"]')
     btn.disabled = true
-    btn.textContent = '提交中…'
+    btn.textContent = '预约成功 ✅'
+    btn.classList.add('btn-success')
 
-    /* ===== EmailJS 发信 ===== */
-    const templateParams = {
-      nickname: record.nickname,
-      contact: record.contact,
-      game: record.service,
-      message: record.message || '（无留言）',
-      name: record.nickname,
-    }
+    setTimeout(() => {
+      btn.disabled = false
+      btn.textContent = '提交预约'
+      btn.classList.remove('btn-success')
+    }, 3000)
 
-    emailjs
-      .send('service_rmcopxq', 'template_qwhroik', templateParams)
-      .then(() => {
-        showSuccess('预约成功！邮件已发送 ✅')
-        btn.disabled = false
-        btn.textContent = '提交预约'
-      })
-      .catch((err) => {
-        console.warn('邮件发送失败，但数据已本地保存', err)
-        showSuccess('预约已提交 ✅（邮件发送暂未成功，阿布仍能看到记录）')
-        btn.disabled = false
-        btn.textContent = '提交预约'
-      })
+    form.reset()
+    form.querySelectorAll('.invalid').forEach((el) => el.classList.remove('invalid'))
+    form.querySelectorAll('.error-msg').forEach((el) => (el.textContent = ''))
+
+    /* ===== 后台尝试发邮件（不阻塞界面） ===== */
+    loadEmailJS(() => {
+      if (emailReady) {
+        const templateParams = {
+          nickname: record.nickname,
+          contact: record.contact,
+          game: record.service,
+          message: record.message || '（无留言）',
+          name: record.nickname,
+        }
+        emailjs.send('service_rmcopxq', 'template_qwhroik', templateParams)
+          .catch(() => {})
+      }
+    })
   })
 
-  /* 关闭弹窗 */
-  function closeModal() {
-    successModal.classList.remove('active')
-    document.body.style.overflow = ''
-  }
 
-  modalClose.addEventListener('click', closeModal)
-  successModal.addEventListener('click', (e) => {
-    if (e.target === successModal) closeModal()
-  })
-
-  /* ESC 关闭 */
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && successModal.classList.contains('active')) closeModal()
-  })
 
   /* --------------------------------------------------
      7. 平滑滚动 (兼容原生)

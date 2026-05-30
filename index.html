@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>预约阿布 — Apex · Minecraft · PUBG · 聊天</title>
+  <meta name="description" content="预约阿布，一起玩 Apex Legends、Minecraft、PUBG，或者单纯聊聊天。" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== 粒子画布 ===== -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ===== 导航栏 ===== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">🎮 阿布</a>
+      <button class="hamburger" id="hamburger" aria-label="菜单">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-menu" id="navMenu">
+        <a href="#hero">首页</a>
+        <a href="#services">项目</a>
+        <a href="#booking">预约</a>
+        <a href="#pricing">价格</a>
+        <a href="#about">关于</a>
+        <a href="#reviews">评价</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <div class="hero-badge">✨ 在线接单中</div>
+      <h1 class="hero-title">预约 <span class="gradient-text">阿布</span></h1>
+      <p class="hero-subtitle">
+        一起玩 <strong>Apex Legends</strong>、<strong>Minecraft</strong>、<strong>PUBG</strong>，<br class="hide-mobile" />
+        或者单纯 <strong>聊聊天</strong>
+      </p>
+      <div class="hero-actions">
+        <a href="#booking" class="btn btn-primary">立即预约</a>
+        <a href="#services" class="btn btn-outline">查看项目</a>
+      </div>
+      <div class="hero-scroll" aria-hidden="true">
+        <span>向下滚动</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 项目介绍 ===== -->
+  <section id="services" class="section services-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🎯 服务项目</span>
+        <h2 class="section-title">选择你的冒险</h2>
+        <p class="section-desc">无论是竞技排位、生存建筑，还是单纯想找个人聊聊，阿布都在线</p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Apex -->
+        <div class="service-card" data-delay="0">
+          <div class="card-glow"></div>
+          <div class="card-icon" style="--card-color: #e74c3c;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="card-title">Apex Legends</h3>
+          <ul class="card-features">
+            <li>⚔️ 排位冲刺</li>
+            <li>🎯 娱乐匹配</li>
+            <li>📚 新手指导</li>
+          </ul>
+        </div>
+
+        <!-- Minecraft -->
+        <div class="service-card" data-delay="100">
+          <div class="card-glow"></div>
+          <div class="card-icon" style="--card-color: #2ecc71;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+          </div>
+          <h3 class="card-title">Minecraft</h3>
+          <ul class="card-features">
+            <li>🏕️ 生存模式</li>
+            <li>🏗️ 建筑合作</li>
+            <li>🌍 联机冒险</li>
+          </ul>
+        </div>
+
+        <!-- PUBG -->
+        <div class="service-card" data-delay="200">
+          <div class="card-glow"></div>
+          <div class="card-icon" style="--card-color: #f39c12;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M12 2v20M2 12h20"/></svg>
+          </div>
+          <h3 class="card-title">PUBG</h3>
+          <ul class="card-features">
+            <li>🎖️ 吃鸡组队</li>
+            <li>🎲 娱乐局</li>
+          </ul>
+        </div>
+
+        <!-- 聊天 -->
+        <div class="service-card" data-delay="300">
+          <div class="card-glow"></div>
+          <div class="card-icon" style="--card-color: #9b59b6;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <h3 class="card-title">聊天陪伴</h3>
+          <ul class="card-features">
+            <li>💬 日常聊天</li>
+            <li>❤️ 情感倾诉</li>
+            <li>📖 学习交流</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 预约表单 ===== -->
+  <section id="booking" class="section booking-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">📅 预约</span>
+        <h2 class="section-title">提交预约</h2>
+        <p class="section-desc">填写信息，阿布会尽快联系你～</p>
+      </div>
+
+      <div class="booking-wrapper">
+        <div class="booking-info">
+          <div class="info-card">
+            <h4>🕒 在线时间</h4>
+            <p>周一至周日<br />19:00 – 23:00</p>
+          </div>
+          <div class="info-card">
+            <h4>📌 注意事项</h4>
+            <p>请提前一天预约，<br />临时约请备注说明</p>
+          </div>
+          <div class="info-card">
+            <h4>🎧 语音平台</h4>
+            <p>游戏内语音 / Discord<br />/ 开黑啦</p>
+          </div>
+        </div>
+
+        <form class="booking-form" id="bookingForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nickname">昵称 <span class="required">*</span></label>
+              <input type="text" id="nickname" placeholder="你的昵称" required />
+              <span class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label for="contact">QQ / 微信 <span class="required">*</span></label>
+              <input type="text" id="contact" placeholder="QQ 号或微信号" required />
+              <span class="error-msg"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="service">预约项目 <span class="required">*</span></label>
+            <div class="select-wrap">
+              <select id="service" required>
+                <option value="" disabled selected>请选择项目</option>
+                <option value="Apex Legends">🎮 Apex Legends</option>
+                <option value="Minecraft">⛏️ Minecraft</option>
+                <option value="PUBG">🔫 PUBG</option>
+                <option value="聊天陪伴">💬 聊天陪伴</option>
+              </select>
+              <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <span class="error-msg"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="message">留言</label>
+            <textarea id="message" rows="3" placeholder="想说的话、备注信息……"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">提交预约</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 价格展示 ===== -->
+  <section id="pricing" class="section pricing-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">💰 价格</span>
+        <h2 class="section-title">透明定价</h2>
+        <p class="section-desc">现阶段所有项目均免费，交个朋友！</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-badge">🔥 热门</div>
+          <h3>💬 聊天陪伴</h3>
+          <div class="price"><span class="price-amount">免费</span></div>
+          <ul>
+            <li>✅ 日常聊天</li>
+            <li>✅ 情感倾诉</li>
+            <li>✅ 学习交流</li>
+          </ul>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pricing-badge">⭐ 推荐</div>
+          <h3>⛏️ Minecraft</h3>
+          <div class="price"><span class="price-amount">免费</span></div>
+          <ul>
+            <li>✅ 生存模式</li>
+            <li>✅ 建筑合作</li>
+            <li>✅ 联机冒险</li>
+          </ul>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-badge">🎯 热门</div>
+          <h3>🔫 PUBG</h3>
+          <div class="price"><span class="price-amount">免费</span></div>
+          <ul>
+            <li>✅ 吃鸡组队</li>
+            <li>✅ 娱乐局</li>
+          </ul>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-badge">💎 精品</div>
+          <h3>🎮 Apex Legends</h3>
+          <div class="price"><span class="price-amount">免费</span></div>
+          <ul>
+            <li>✅ 排位冲刺</li>
+            <li>✅ 娱乐匹配</li>
+            <li>✅ 新手指导</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 关于我 ===== -->
+  <section id="about" class="section about-section">
+    <div class="container">
+      <div class="about-wrapper">
+        <div class="about-avatar">
+          <div class="avatar-ring">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%231a1a2e'/%3E%3Ctext x='50' y='58' font-size='40' text-anchor='middle' fill='%23fff'%3E🎮%3C/text%3E%3C/svg%3E"
+                 alt="阿布头像" class="avatar-img" />
+          </div>
+        </div>
+        <div class="about-text">
+          <span class="section-tag">👋 关于我</span>
+          <h2 class="section-title">你好，我是 <span class="gradient-text">阿布</span></h2>
+          <p>
+            喜欢 <strong>FPS 游戏</strong>、<strong>沙盒游戏</strong> 和结交新朋友。<br />
+            享受在 Apex 里并肩作战的默契，在 Minecraft 中一起建造的成就感，<br class="hide-mobile" />
+            也喜欢在 PUBG 决赛圈里心跳加速的瞬间。<br /><br />
+            欢迎预约一起游戏或者聊天，期待与你相遇 🎉
+          </p>
+          <div class="about-stats">
+            <div class="stat"><strong data-count="500">0</strong><span>+ 游戏时长 (h)</span></div>
+            <div class="stat"><strong data-count="50">0</strong><span>+ 预约玩家</span></div>
+            <div class="stat"><strong data-count="98">0</strong><span>% 好评率</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 用户评价 ===== -->
+  <section id="reviews" class="section reviews-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">⭐ 评价</span>
+        <h2 class="section-title">玩家怎么说</h2>
+        <p class="section-desc">来自预约过的朋友们的真实反馈</p>
+      </div>
+
+      <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="review-card"><div class="review-stars">★★★★★</div><p>"阿布超好聊天，声音也好听！打了一把又一把哈哈"</p><div class="reviewer"><span class="reviewer-name">夜雨声烦</span><span class="reviewer-tag">聊天陪伴</span></div></div>
+          <div class="review-card"><div class="review-stars">★★★★★</div><p>"PUBG 队友太靠谱了，带我吃了两把鸡 🐔🐔"</p><div class="reviewer"><span class="reviewer-name">ChickenDinner</span><span class="reviewer-tag">PUBG</span></div></div>
+          <div class="review-card"><div class="review-stars">★★★★★</div><p>"Minecraft 建筑大神！帮我搭了个城堡，太震撼了"</p><div class="reviewer"><span class="reviewer-name">筑梦师小明</span><span class="reviewer-tag">Minecraft</span></div></div>
+          <div class="review-card"><div class="review-stars">★★★★☆</div><p>"Apex 教学超耐心，从青铜打到黄金了，谢谢阿布！"</p><div class="reviewer"><span class="reviewer-name">ApexNewbie</span><span class="reviewer-tag">Apex Legends</span></div></div>
+          <div class="review-card"><div class="review-stars">★★★★★</div><p>"聊了一晚上人生，感觉很放松。是个很温柔的人～"</p><div class="reviewer"><span class="reviewer-name">晚风</span><span class="reviewer-tag">聊天陪伴</span></div></div>
+          <div class="review-card"><div class="review-stars">★★★★★</div><p>"Minecraft 联机冒险太开心了，下次还要一起玩！"</p><div class="reviewer"><span class="reviewer-name">方块人</span><span class="reviewer-tag">Minecraft</span></div></div>
+        </div>
+
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevBtn" aria-label="上一页">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="carousel-dots" id="carouselDots"></div>
+          <button class="carousel-btn" id="nextBtn" aria-label="下一页">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 页脚 ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="footer-logo">🎮 阿布预约站</span>
+          <p>一起游戏，一起聊天，一起快乐。</p>
+        </div>
+        <div class="footer-links">
+          <h4>联系方式</h4>
+          <div class="contact-list">
+            <a href="#" class="contact-item"><span class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span> QQ：阿布#1234</a>
+            <a href="#" class="contact-item"><span class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></span> 微信：abu_gaming</a>
+            <a href="#" class="contact-item"><span class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="4"/><circle cx="12" cy="12" r="3"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></span> B站：阿布玩游戏</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© 2026 阿布预约站 · Made with ❤️</p>
+    </div>
+  </footer>
+
+  <!-- ===== 成功弹窗 ===== -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-content">
+      <div class="modal-icon">✅</div>
+      <h3>预约成功！</h3>
+      <p>阿布已经收到你的预约信息啦～<br />将会通过你留下的联系方式与你确认。</p>
+      <button class="btn btn-primary" id="modalClose">知道了</button>
+    </div>
+  </div>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
